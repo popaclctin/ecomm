@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const usersRepo = require("./repositories/users.js");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,5 +22,5 @@ app.post("/", (req, res) => {
 });
 
 app.listen(8888, () => {
-  console.log(`Listening...`);
+  console.log("Listening...");
 });
