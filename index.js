@@ -16,8 +16,16 @@ app.get("/", (req, res) => {
             </div>`);
 });
 
-app.post("/", (req, res) => {
-  console.log(req.body);
+app.post("/", async (req, res) => {
+  const { email, password, confirmPassword } = req.body;
+  const existingUser = await usersRepo.getOneBy({ email });
+  if (existingUser) {
+    res.send("Email is already in use");
+  }
+
+  if (password !== confirmPassword) {
+    res.send("Passwords do not match");
+  }
   res.send("Account created");
 });
 
