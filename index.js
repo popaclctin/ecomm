@@ -56,7 +56,22 @@ app.get("/signin", (req, res) => {
             </div>`);
 });
 
-app.post("/singin", async (req, res) => {});
+app.post("/signin", async (req, res) => {
+  const { email, password } = req.body;
+  const existingUser = await usersRepo.getOneBy({ email });
+
+  if (!existingUser) {
+    res.send("Email not found");
+  }
+
+  if (existingUser.password !== password) {
+    res.send("Invalid password");
+  }
+
+  req.session.userId = existingUser.id;
+
+  res.send("You are signed in");
+});
 
 app.listen(8888, () => {
   console.log("Listening on port 8888...");
