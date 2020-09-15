@@ -10,5 +10,17 @@
     "price": 1,
     "image": null,
     "id": "6781ada6"
+  },
+  {
+    "title": "Pink shorts",
+    "price": 100,
+    "image": null,
+    "id": "2675a34e"
+  },
+  {
+    "title": "Pizza",
+    "price": 100,
+    "image": null,
+    "id": "be47f9f8"
   }
 ]
