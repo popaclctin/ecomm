@@ -21,6 +21,10 @@ router.post(
   [requireTitle, requirePrice],
   (req, res) => {
     const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.send(productsNewTemplate({ errors }));
+    }
+
     const image = req.file.buffer.toString("base64");
     const { title, price } = req.body;
     productsRepo.create({ title, price, image });
