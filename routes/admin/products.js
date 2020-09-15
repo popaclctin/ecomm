@@ -3,6 +3,7 @@ const multer = require("multer");
 
 const productsNewTemplate = require("../../views/admin/products/new");
 const productsIndexTemplate = require("../../views/admin/products/index");
+const productsEditTemplate = require("../../views/admin/products/edit");
 const productsRepo = require("../../repositories/products");
 const { requireTitle, requirePrice } = require("./validators");
 const { handleErrors, requireAuth } = require("./middlewares");
@@ -32,5 +33,18 @@ router.post(
     res.redirect("/admin/products");
   }
 );
+
+router.get("/admin/products/:id/edit", requireAuth, async (req, res) => {
+  const product = await productsRepo.getOne(req.params.id);
+  if (!product) {
+    res.send("Product not found!");
+  }
+
+  res.send(productsEditTemplate({ product }));
+});
+
+router.post("/admin/products/:id/edit", requireAuth, async (req, res) => {
+  res.send("Product has been edited");
+});
 
 module.exports = router;
