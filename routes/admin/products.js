@@ -7,6 +7,7 @@ const productsEditTemplate = require("../../views/admin/products/edit");
 const productsRepo = require("../../repositories/products");
 const { requireTitle, requirePrice } = require("./validators");
 const { handleErrors, requireAuth } = require("./middlewares");
+const products = require("../../views/admin/products/index");
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -66,5 +67,10 @@ router.post(
     res.redirect("/admin/products");
   }
 );
+
+router.post("/admin/products/:id/delete", requireAuth, async (req, res) => {
+  await productsRepo.delete(req.params.id);
+  res.redirect("/admin/products");
+});
 
 module.exports = router;
